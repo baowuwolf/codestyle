@@ -40,11 +40,11 @@ do { \
 } while (0)
 
 #define NSLogInfo   DDLogInfo
-#define NSLogWarn   DDLogWarn
+#define NSLogWarn DDLogWarn
 #define NSLogError  DDLogError
 
-#define NSLogCInfo   DDLogCInfo
-#define NSLogCWarn   DDLogCWarn
+#define NSLogCInfo    DDLogCInfo
+#define NSLogCWarn DDLogCWarn
 #define NSLogCError  DDLogCError
 
 #ifdef NSLog
@@ -159,12 +159,12 @@ typedef void (^adRequestFailedBlock)(NSError *error);
 @property(nonatomic, retain) BaiduMobAdNative *native;
 @property(nonatomic, retain) BaiduMobAdNativeAdView *baiduNativeAdView;
 @property(nonatomic, retain) NSMutableArray *mainArray;
-@property(nonatomic, copy) NSString *adUntiTag;
-@property(nonatomic, copy) NSString *adActionUrl;
-@property(nonatomic, copy) NSString *posKey;
-@property(nonatomic, copy) NSString *adImgUrl;
-@property(nonatomic, retain) UIImageView *adImgView;
-@property(copy) baiduNativeBlock                     natvieBlock;
+@property(nonatomic, copy) NSString *adUntiTag;// 是否添加单位
+@property(nonatomic, copy) NSString *adActionUrl;// 操作URL
+@property(nonatomic, copy) NSString *posKey;// 位置信息
+@property(nonatomic, copy) NSString *adImgUrl;// 封面
+@property(nonatomic, retain) UIImageView *adImgView;//封面控件
+@property(copy) baiduNativeBlock                     natvieBlock;// 导航
 @property(copy) void (     ^       finishBlock)(BaiduMobAdNativeAdObject *  data, BaiduMobAdNativeAdView  *view);
 @property(copy) adRequestFailedBlock adFailedBlock;
 
