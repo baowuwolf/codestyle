@@ -7,7 +7,7 @@ set -o nounset
 readonly script_path="${BASH_SOURCE[0]}"
 readonly script_dir="$( cd "$( dirname "${script_path}" )" && pwd )"
 
-CMD="/Users/wangchao9/Library/Application Support/Developer/Shared/Xcode/Plug-ins/UncrustifyPlugin.xcplugin/Contents/Resources/uncrustify"
+CMD="$HOME/Library/Application Support/Developer/Shared/Xcode/Plug-ins/UncrustifyPlugin.xcplugin/Contents/Resources/uncrustify"
 
 rm -rf "${script_dir}/Output"
 cp -rf "${1}" "${script_dir}/Output"
