@@ -4,19 +4,22 @@
 
 
 @implementation NSArray (WWDC)
-- (NSArray*)map:(id (^)(id))xform {
+- (NSArray*)map:( id (^)(id) )xform {
     id result = [NSMutableArray array];
-    for (id elem in self) {
+    for(id elem in self){
         [result addObject:xform(elem)];
+    }
+
+    if(111){
     }
 
     return result;
 }
 
-- (NSArray*)collect:(BOOL (^)(id))predicate {
+- (NSArray*)collect:( BOOL (^)(id) )predicate {
     id result = [NSMutableArray array];
-    for (id elem in self) {
-        if (predicate(elem)) {
+    for(id elem in self){
+        if( predicate(elem) ){
             [result addObject:elem];
         }
     }
@@ -24,10 +27,11 @@
     return result;
 }
 
-- (void)each:(void (^)(id object))block {
+- (void)each:( void (^)(id object) )block {
     [self enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop){
         block(obj);
     }];
+    NSString *dictionary = @{@1:@2};
 }
 
 // corner case: block literal in use with return type
@@ -48,33 +52,33 @@ id longLines = [allLines collect:^BOOL* (id item){
 
 
 // oc/blocks.m
-int* (^ blkReturningPointer)(int) = ^int* (int a){
-    return a + 1;
+int* (^blkReturningPointer)(int) = ^int* (int a){
+    return a+1;
 };
 
-void (^ blk2)(int*) = ^(int *b){
+void (^blk2)(int*) = ^(int *b){
     *b = 1;
 };
 
 
-int (^ oneFrom)(int) = ^(int anInt){
-    return anInt - 1;
+int (^oneFrom)(int) = ^(int anInt){
+    return anInt-1;
 };
 
 // this should not be flagged as OC_BLOCK_CARET
-int x = 12 ^ 23;
+int x = 12^23;
 
 // oc/blocks_align.m
 [[HRNewsService sharedInstance] unregisterPushToken:data
  success:^{
     self.notificationsEnabled = NO;
-    if (data.param) {
+    if(data.param){
         self.loudNotifications = YES;
     }
 }
  fail:^{
     self.notificationsEnabled = NO;
-    if (data.param) {
+    if(data.param){
         self.loudNotifications = YES;
     }
 }
@@ -83,7 +87,7 @@ int x = 12 ^ 23;
 
 // oc/box.m
 NSArray      *test = @[];
-NSNumber     *test = @(42 * 2);
+NSNumber     *test = @(42*2);
 NSNumber     *test = @4.0;
 NSDictionary *test = @{@"foo":@"bar"};
 
@@ -104,9 +108,9 @@ NSDictionary *test = @{@"foo":@"bar"};
 - (void)locationManager:(CLLocationManager*)manager didFailWithError:(NSError*)error {
     [UIAlertView showError:error
      withTitle:NSLocalizedString(@"Your location cannot be determined",
-                                 @"The location of the user cannot be guessed")
+         @"The location of the user cannot be guessed")
      message:NSLocalizedString(@"You can try again by pressing the refresh button",
-                               @"Recovery suggestion when the location cannot be found")];
+         @"Recovery suggestion when the location cannot be found")];
 }
 
 @end
@@ -118,14 +122,14 @@ NSArray *array = @[@1,
                    @3,
                    @4];
 
-NSArray *array = @{ @1:@1,
-                    @2:@2,
-                    @3:@3,
-                    @4:@4 };
+NSArray *array = @{@1:@1,
+                   @2:@2,
+                   @3:@3,
+                   @4:@4};
 
 int i = 1
-        + 1
-        + 2;
+        +1
+        +2;
 
 
 // oc/bug_i_125-412.m
@@ -139,12 +143,12 @@ NSString *newValue = [myStrings[0] stringByTrimmingCharactersInSet:NSCharacterSe
 
 
 // oc/bug_i_408.m
-CGFloat fontSize = floorf([font pointSize]* [self tileContentScale] + 0.5);
+CGFloat fontSize = floorf([font pointSize]* [self tileContentScale]+0.5);
 
 
 // oc/bug_i_477.m
 [dataArray enumerateObjectsUsingBlock:^(dataType *data, NSUInteger idx, BOOL *stop){
-    // Do stuff!
+                   // Do stuff!
 }];
 
 
@@ -206,7 +210,7 @@ CGFloat fontSize = floorf([font pointSize]* [self tileContentScale] + 0.5);
 
 // oc/code_placeholder.m
 double          delayInSeconds = 2.0;
-dispatch_time_t popTime        = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+dispatch_time_t popTime        = dispatch_time( DISPATCH_TIME_NOW, (int64_t) (delayInSeconds*NSEC_PER_SEC) );
 dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
     <#code to be executed on the main queue after delay#>
 });
@@ -222,10 +226,10 @@ dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
 
     // If the lump is nil something went wrong
     // fill out the error object to explain what wrent wrong
-    if (outError != NULL) {
+    if(outError != NULL){
         // The sender wanted an error reported. If there
         // was a problem, fill in an NSError object
-        if (retval == nil) {
+        if(retval == nil){
             // The error object should include an (unhelpful)
             // explanation of what happened
             NSDictionary *userInfoDict = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -236,7 +240,7 @@ dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
             *outError = [NSError errorWithDomain:LinearInternalErrorDomain
                          code:linErrCantFormatDocumentData
                          userInfo:userInfoDict];
-        } else {
+        }else {
             // No problem. Don't supply an error object.
             *outError = nil;
         }
@@ -247,11 +251,11 @@ dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
 
 // oc/Declarations.h
 
-@interface EmptyClass : NSObject
+@interface EmptyClass:NSObject
 - (void)aMessage:(id)arg;
 @end
 
-@interface EmptyClass : NSObject {}
+@interface EmptyClass:NSObject {}
 - (void)aMessage:(id)arg;
 @end
 
@@ -263,7 +267,7 @@ dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
 - (void)aMessage:(id)arg;
 @end
 
-@interface TestClass : NSObject <TestProtocol> {
+@interface TestClass:NSObject <TestProtocol> {
 }
 - (void)aMessage:(id)arg;
 @end
@@ -272,16 +276,16 @@ dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
 // oc/exceptions.m
 
 int main(int argc, const char *argv[]){
-    @try {
+    @try{
         [NSException raise:NSInternalInconsistency
          format:@"An internal inconsistency was raised"];
-    }@catch (NSException *e) {
+    }@catch(NSException *e){
         NSLog(@"Catch");
-    }@finally {
+    }@finally{
         NSLog(@"Finally");
     }
 
-    @throw [NSException exceptionWithName:@"foo" reason:@"bar" userInfo:nil];
+    @throw[NSException exceptionWithName:@"foo" reason:@"bar" userInfo:nil];
 
     NSException *exception = [NSException exceptionWithName:@"HotTeaException"
                               reason:@"The tea is too hot"
@@ -295,14 +299,14 @@ int main(int argc, const char *argv[]){
 // oc/for.m
 [[HRNewsService sharedInstance] fetchBreakingNewsItemWithId:self.breakingNewsId success:^(id responseObject){
     NSDictionary *thing;
-    for (NSArray *dictionary in photos) {
+    for(NSArray *dictionary in photos){
     }
 } failure:^(NSError *error){
-    // Failure?
+                   // Failure?
 }];
 
 // We also need to consider cases where a non-pointer type (or, a pointer without the star) is declared in ObjC.
-for (id obj in someDictionary) {
+for(id obj in someDictionary){
     NSLog(@"This could be anything! Objective-C really needs parametrized collections.");
 }
 
@@ -310,7 +314,7 @@ for (id obj in someDictionary) {
 // oc/Fraction.h
 #import <Foundation/NSObject.h>
 
-@interface Fraction : NSObject {
+@interface Fraction:NSObject {
     int numerator;
     int denominator;
 }
@@ -359,7 +363,7 @@ for (id obj in someDictionary) {
     [UIView animateWithDuration:0.08f delay:0.f options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.transform = CGAffineTransformIdentity;
         [UIView animateWithDuration:1 delay:0 options:0 animations:^{
-            // blah
+                   // blah
         } completion:nil];
     }];
 }];
@@ -375,18 +379,18 @@ dispatch_async(foo, ^{
 
 // oc/gh293.m
 self.someErrorView = ({
-    UIView *view = [[UIView alloc] init];
-    view.backgroundColor = [UIColor redColor];
-    [view addSubview:({
-        self.someErrorLabel = ({
-            UILabel *label = [[UILabel alloc] init];
-            label.textAlignment = NSTextAlignmentCenter;
-            label.backgroundColor = [UIColor clearColor];
-            label;
-        });
-    })];
-    view;
-});
+                          UIView *view = [[UIView alloc] init];
+                          view.backgroundColor = [UIColor redColor];
+                          [view addSubview:({
+                                                self.someErrorLabel = ({
+                                                                           UILabel *label = [[UILabel alloc] init];
+                                                                           label.textAlignment = NSTextAlignmentCenter;
+                                                                           label.backgroundColor = [UIColor clearColor];
+                                                                           label;
+                                                                       });
+                                            })];
+                          view;
+                      });
 [self.view addSubview:self.someErrorView];
 
 
@@ -404,7 +408,7 @@ NSDictionary *p = valid?p1:nil;
 - do;
 @end
 
-@interface MyJob : Object<Job>
+@interface MyJob:Object<Job>
 - do;
 @end
 @implementation MyJob
@@ -416,14 +420,14 @@ NSDictionary *p = valid?p1:nil;
 }
 @end
 
-@interface JobExecutor : Object
-- doWith:(id<Job>) job for:(int)count;
+@interface JobExecutor:Object
+- doWith:(id<Job>) job for:(int) count;
 @end
 
 @implementation JobExecutor
-- doWith:(id<Job>)job for:(int)count
+- doWith:(id<Job>)job for:(int) count
 {
-    for (int i = 0; i < count; ++i) {
+    for(int i = 0; i < count; ++i){
         [job do];
     }
 
@@ -445,12 +449,12 @@ NSArray      *multilineArray = @[
 
 void main(int argc, const char *argv[]){
     // character literals.
-    NSNumber *theLetterZ = @'Z';        // equivalent to [NSNumber numberWithChar:'Z']
+    NSNumber *theLetterZ = @'Z'; // equivalent to [NSNumber numberWithChar:'Z']
 
     // integral literals.
-    NSNumber *fortyTwo         = @42;   // equivalent to [NSNumber numberWithInt:42]
-    NSNumber *fortyTwoUnsigned = @42U;  // equivalent to [NSNumber numberWithUnsignedInt:42U]
-    NSNumber *fortyTwoLong     = @42L;  // equivalent to [NSNumber numberWithLong:42L]
+    NSNumber *fortyTwo         = @42; // equivalent to [NSNumber numberWithInt:42]
+    NSNumber *fortyTwoUnsigned = @42U; // equivalent to [NSNumber numberWithUnsignedInt:42U]
+    NSNumber *fortyTwoLong     = @42L; // equivalent to [NSNumber numberWithLong:42L]
     NSNumber *fortyTwoLongLong = @42LL; // equivalent to [NSNumber numberWithLongLong:42LL]
 
     // floating point literals.
@@ -458,12 +462,12 @@ void main(int argc, const char *argv[]){
     NSNumber *piDouble = @3.1415926535; // equivalent to [NSNumber numberWithDouble:3.1415926535]
 
     // BOOL literals.
-    NSNumber *yesNumber = @YES;         // equivalent to [NSNumber numberWithBool:YES]
-    NSNumber *noNumber  = @NO;          // equivalent to [NSNumber numberWithBool:NO]
+    NSNumber *yesNumber = @YES; // equivalent to [NSNumber numberWithBool:YES]
+    NSNumber *noNumber  = @NO; // equivalent to [NSNumber numberWithBool:NO]
 
     #ifdef __cplusplus
-    NSNumber *trueNumber  = @true;      // equivalent to [NSNumber numberWithBool:(BOOL)true]
-    NSNumber *falseNumber = @false;     // equivalent to [NSNumber numberWithBool:(BOOL)false]
+    NSNumber *trueNumber  = @true; // equivalent to [NSNumber numberWithBool:(BOOL)true]
+    NSNumber *falseNumber = @false; // equivalent to [NSNumber numberWithBool:(BOOL)false]
     #endif /* ifdef __cplusplus */
 }
 
@@ -492,19 +496,19 @@ int main(int argc, const char *argv[]){
 
 // oc/misc.m
 - (id)init {
-    GLfloat wc[3][3] = {{ 0.6, 0.6, 0.0 }, { 1.0, 0.7, 0.1 }, { 0.5, 0.7, 0.2}, };
-    GLfloat cc[3][3] = {{ 0.0, 0.0, 0.6 }, { 0.3, 0.1, 0.5 }, { 0.0, 0.0, 0.5}, };
-    GLfloat sc[3] = {0.75, 0.75, 0.75};
+    GLfloat wc[3][3] = {{0.6, 0.6, 0.0}, {1.0, 0.7, 0.1}, {0.5, 0.7, 0.2}, };
+    GLfloat cc[3][3] = {{0.0, 0.0, 0.6}, {0.3, 0.1, 0.5}, {0.0, 0.0, 0.5}, };
+    GLfloat sc[3]    = {0.75, 0.75, 0.75};
 
-    return [self initWithWarmColors:(float*)&wc coolColors:(float*)&cc
+    return [self initWithWarmColors:(float*) &wc coolColors:(float*) &cc
             surfaceColor:sc enableTexturing:NO enableSpecular:YES
             enableQuakeDisruptor:NO];
 
     [NSException raise:NSInternalInconsistency
      format:@"An internal inconsistency was raised"];
 
-    for (i = 0; i <[a count]; i++) {
-        [thePerson setAmount:(1.5 * 17) forKey:@"overtime"];
+    for(i = 0; i <[a count]; i++){
+        [thePerson setAmount:(1.5*17) forKey:@"overtime"];
         [screen showtext:x:y:@"Message"];
     }
 }
@@ -517,44 +521,44 @@ int main(int argc, const char *argv[]){
 
 
 // oc/more_blocks.m
-int (^ myBlock)(int) = ^(int num){ return num * multiplier; };
+int (^myBlock)(int) = ^(int num){return num*multiplier; };
 // for comparison
 int (*fcnptr)(int);
 
-int d = i % 10;
-repeat(10, ^{ putc('0' + d); });
+int d = i%10;
+repeat(10, ^{putc('0'+d); });
 
 
-void (^ block)(void);
+void (^block)(void);
 typedef void (^vstr_t)(char*);
 typedef void (^workBlk_t)(void);
 
 void AllLinesInFile(char *f, vstr_t block){
     FILE *fp = fopen(f, "r");
-    if (!fp) {
+    if(!fp){
         return;
     }
     char line[1024];
-    while (fgets(line, 1024, fp)) {
+    while( fgets(line, 1024, fp) ){
         block(line);
     }
     fclose(fp);
 }
 
 @implementation NSArray (WWDC)
-- (NSArray*)map:(id (^)(id))xform {
+- (NSArray*)map:( id (^)(id) )xform {
     id result = [NSMutableArray array];
-    for (id elem in self) {
+    for(id elem in self){
         [result addObject:xform(elem)];
     }
 
     return result;
 }
 
-- (NSArray*)collect:(BOOL (^)(id))predicate {
+- (NSArray*)collect:( BOOL (^)(id) )predicate {
     id result = [NSMutableArray array];
-    for (id elem in self) {
-        if (predicate(elem)) {
+    for(id elem in self){
+        if( predicate(elem) ){
             [result addObject:elem];
         }
     }
@@ -581,17 +585,17 @@ id longLines = [allLines collect:^BOOL* (id item){
 
 // oc/more_blocks_2.m
 // Test a case where blocks wrapped by parentheses were causing the parser to crash
-int (^ myBlock)(int) = (^(int num){
-    return num * multiplier;
+int (^myBlock)(int) = (^(int num){
+    return num*multiplier;
 });
 
-dispatch_async(thread, (^{
+dispatch_async( thread, (^{
     dispatch_async(thread, ^{
         dispatch_async(thread, ^{
             NSLog(@"Hooray for dispatch_async!");
         });
     });
-}));
+}) );
 
 // Example of a unit test using Kiwi
 beforeAll(^{
@@ -603,7 +607,7 @@ beforeAll(^{
 // oc/msg.m
 [obj doSomething:0 withArgs:@""];
 [@"" doSomething:0 withArgs:@""];
-NSString *result = (id)[obj arg:param value:3];
+NSString *result = (id) [obj arg:param value:3];
 
 
 // oc/msg_align.m
@@ -614,14 +618,14 @@ BOOL immediatlyReady = [self ensureResource:mutableResources[0]
                         completionHandler:completionHandler
                         errorHandler:errorHandler];
 
-[myObject doFooWith1:arg1 name1:arg2  // some lines with >1 arg
+[myObject doFooWith1:arg1 name1:arg2 // some lines with >1 arg
  error1:arg3];
 
 [myObject doFooWith2:arg4
  name2:arg5 error2:arg6];
 
 [myObject doFooWith3:arg7
- name3:arg8           // aligning keywords instead of colons
+ name3:arg8        // aligning keywords instead of colons
  error3:arg9];
 
 [myObject doithereguysA:argA
@@ -661,8 +665,8 @@ int foo2(){
 
 // oc/ns_enum.m
 // The semicolons at the end of these declarations are not superfluous.
-typedef NS_ENUM (NSUInteger, MyEnum){MyValue1, MyValue2, MyValue3};
-typedef NS_OPTIONS (NSUInteger, MyBitmask){MyBit1, MyBit2, MyBit3};
+typedef NS_ENUM(NSUInteger, MyEnum){MyValue1, MyValue2, MyValue3};
+typedef NS_OPTIONS(NSUInteger, MyBitmask){MyBit1, MyBit2, MyBit3};
 
 // NS_ENUM specifies the type and name of the enum.
 typedef enum {
@@ -670,7 +674,7 @@ typedef enum {
     MyValue2,
     MyValue3
 } MyEnum;
-typedef NS_ENUM (NSUInteger, MyEnum){
+typedef NS_ENUM(NSUInteger, MyEnum){
     MyValue1,
     MyValue2,
     MyValue3
@@ -678,14 +682,14 @@ typedef NS_ENUM (NSUInteger, MyEnum){
 
 // NS_OPTIONS is equivalent to NS_ENUM, but semantically used for bitmask enums.
 typedef enum {
-    MyBit1                              = (1u << 0),
-    MyBit2Longer                        = (1u << 1),
-    MyBit3ThatIsConsiderablyMoreVerbose = (1u << 2)
+    MyBit1                              = (1u<<0),
+    MyBit2Longer                        = (1u<<1),
+    MyBit3ThatIsConsiderablyMoreVerbose = (1u<<2)
 } MyBitmask;
-typedef NS_OPTIONS (NSUInteger, MyBitmask){
-    MyBit1                              = (1u << 0),
-    MyBit2Longer                        = (1u << 1),
-    MyBit3ThatIsConsiderablyMoreVerbose = (1u << 2)
+typedef NS_OPTIONS(NSUInteger, MyBitmask){
+    MyBit1                              = (1u<<0),
+    MyBit2Longer                        = (1u<<1),
+    MyBit3ThatIsConsiderablyMoreVerbose = (1u<<2)
 };
 
 
@@ -716,10 +720,10 @@ id<MTLBuffer> buf = data?[metal::g_Device newBufferWithBytes:data length:len opt
 // oc/properties.m
 @interface UCTestClass ()
 
-@property(nonatomic, strong, null_unspecified, readonly) NSString                                              *test1;
-@property(strong, readonly, nonatomic, nullable) NSString                                                      *test2;
-@property(strong, readonly, getter = test2Getter, nonatomic, nonnull) NSString                                 *test3;
-@property(strong, readonly, getter = test2Getter, nonatomic, setter = test2Setter :, null_resettable) NSString *test4;
+@property(nonatomic, strong, null_unspecified, readonly) NSString                                             *test1;
+@property(strong, readonly, nonatomic, nullable) NSString                                                     *test2;
+@property(strong, readonly, getter = test2Getter, nonatomic, nonnull) NSString                                *test3;
+@property(strong, readonly, getter = test2Getter, nonatomic, setter = test2Setter:, null_resettable) NSString *test4;
 
 @end
 
@@ -732,7 +736,7 @@ Protocol *counter = @protocol(ReferenceCounting);
 
 @protocol ReferenceCounting
 
-- setRefCount:(int)count;
+- setRefCount:(int) count;
 
 - (int)refCount;
 
@@ -742,11 +746,11 @@ Protocol *counter = @protocol(ReferenceCounting);
 
 @end
 
-@interface Formatter : NSObject < Formatting, Prettifying >
+@interface Formatter:NSObject < Formatting, Prettifying >
 
 @end
 
-if ([receiver conformsTo:@protocol(ReferenceCounting)]) {
+if([receiver conformsTo:@protocol(ReferenceCounting)]){
     [receiver incrementCount];
 }
 
@@ -813,7 +817,7 @@ if ([receiver conformsTo:@protocol(ReferenceCounting)]) {
 
 + (ATColorTableController*)sharedColorTableController {
     static ATColorTableController *gSharedColorTableController = nil;
-    if (gSharedColorTableController == nil) {
+    if(gSharedColorTableController == nil){
         gSharedColorTableController = [[[self class] alloc] initWithNibName:@"ColorTable" bundle:[NSBundle bundleForClass:[self class]]];
     }
 
@@ -841,17 +845,17 @@ if ([receiver conformsTo:@protocol(ReferenceCounting)]) {
 
 - (NSColor*)selectedColor {
     NSString *name = [self selectedColorName];
-    if (name != nil) {
+    if(name != nil){
         return [_colorList colorWithKey:name];
-    } else {
+    }else {
         return nil;
     }
 }
 
 - (NSString*)selectedColorName {
-    if ([_tableColorList selectedRow] != -1) {
+    if([_tableColorList selectedRow] != -1){
         return [_colorNames objectAtIndex:[_tableColorList selectedRow]];
-    } else {
+    }else {
         return nil;
     }
 }
@@ -859,18 +863,18 @@ if ([receiver conformsTo:@protocol(ReferenceCounting)]) {
 - (void)_selectColor:(NSColor*)color {
     // Search for that color in our list
     NSInteger row = 0;
-    for (NSString *name in _colorNames) {
+    for(NSString *name in _colorNames){
         NSColor *colorInList = [_colorList colorWithKey:name];
-        if ([color isEqual:colorInList]) {
+        if([color isEqual:colorInList]){
             break;
         }
         row++;
     }
     _updatingSelection = YES;
-    if (row != -1) {
+    if(row != -1){
         [_tableColorList scrollRowToVisible:row];
         [_tableColorList selectRowIndexes:[NSIndexSet indexSetWithIndex:row] byExtendingSelection:NO];
-    } else {
+    }else {
         [_tableColorList scrollRowToVisible:0];
         [_tableColorList selectRowIndexes:[NSIndexSet indexSet] byExtendingSelection:NO];
     }
@@ -878,7 +882,7 @@ if ([receiver conformsTo:@protocol(ReferenceCounting)]) {
 }
 
 - (void)_createWindowIfNeeded {
-    if (_window == nil) {
+    if(_window == nil){
         NSRect viewFrame = self.view.frame;
         // Create and setup our window
         _window = [[ATPopupWindow alloc] initWithContentRect:viewFrame styleMask:NSBorderlessWindowMask backing:NSBackingStoreBuffered defer:NO];
@@ -895,7 +899,7 @@ if ([receiver conformsTo:@protocol(ReferenceCounting)]) {
 }
 
 - (void)_windowClosed:(NSNotification*)note {
-    if (_eventMonitor) {
+    if(_eventMonitor){
         [NSEvent removeMonitor:_eventMonitor];
         _eventMonitor = nil;
     }
@@ -905,12 +909,12 @@ if ([receiver conformsTo:@protocol(ReferenceCounting)]) {
 
 - (void)_closeAndSendAction:(BOOL)sendAction {
     [_window close];
-    if (sendAction) {
-        if ([self.delegate respondsToSelector:@selector(colorTableController:didChooseColor:named:)]) {
+    if(sendAction){
+        if([self.delegate respondsToSelector:@selector(colorTableController:didChooseColor:named:)]){
             [self.delegate colorTableController:self didChooseColor:self.selectedColor named:self.selectedColorName];
         }
-    } else {
-        if ([self.delegate respondsToSelector:@selector(didCancelColorTableController:)]) {
+    }else {
+        if([self.delegate respondsToSelector:@selector(didCancelColorTableController:)]){
             [self.delegate didCancelColorTableController:self];
         }
     }
@@ -928,9 +932,9 @@ if ([receiver conformsTo:@protocol(ReferenceCounting)]) {
     // The origin is the lower left; subtract the window's height
     origin.y -= NSHeight(windowFrame);
     // Center the popup window under the rect
-    origin.y += floor(NSHeight(rect) / 3.0);
-    origin.x -= floor(NSWidth(windowFrame) / 2.0);
-    origin.x += floor(NSWidth(rect) / 2.0);
+    origin.y += floor(NSHeight(rect)/3.0);
+    origin.x -= floor(NSWidth(windowFrame)/2.0);
+    origin.x += floor(NSWidth(rect)/2.0);
 
     [_window setFrameOrigin:origin];
     [_window popup];
@@ -941,22 +945,22 @@ if ([receiver conformsTo:@protocol(ReferenceCounting)]) {
      name:NSWindowWillCloseNotification
      object:_window];
 
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_windowShouldClose:)name:NSApplicationDidResignActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(_windowShouldClose:) name:NSApplicationDidResignActiveNotification object:nil];
 
     // Start watching events to figure out when to close the window
     NSAssert(_eventMonitor == nil, @"_eventMonitor should not be created yet");
-    _eventMonitor = [NSEvent addLocalMonitorForEventsMatchingMask:NSLeftMouseDownMask | NSRightMouseDownMask | NSOtherMouseDownMask | NSKeyDownMask handler:^(NSEvent *incomingEvent){
+    _eventMonitor = [NSEvent addLocalMonitorForEventsMatchingMask:NSLeftMouseDownMask|NSRightMouseDownMask|NSOtherMouseDownMask|NSKeyDownMask handler:^(NSEvent *incomingEvent){
         NSEvent *result = incomingEvent;
         NSWindow *targetWindowForEvent = [incomingEvent window];
-        if (targetWindowForEvent != _window) {
+        if(targetWindowForEvent != _window){
             [self _closeAndSendAction:NO];
-        } else if ([incomingEvent type] == NSKeyDown) {
-            if ([incomingEvent keyCode] == 53) {
-                // Escape
+        }else if([incomingEvent type] == NSKeyDown){
+            if([incomingEvent keyCode] == 53){
+                   // Escape
                 [self _closeAndSendAction:NO];
                 result = nil; // Don't process the event
-            } else if ([incomingEvent keyCode] == 36) {
-                // Enter
+            }else if([incomingEvent keyCode] == 36){
+                   // Enter
                 [self _closeAndSendAction:YES];
                 result = nil;
             }
@@ -964,7 +968,7 @@ if ([receiver conformsTo:@protocol(ReferenceCounting)]) {
 
         return result;
     }];
-} /* editColor */
+}                  /* editColor */
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView*)tableView {
     return _colorNames.count;
@@ -992,9 +996,9 @@ if ([receiver conformsTo:@protocol(ReferenceCounting)]) {
 @implementation MyDocument
 
 - (NSString*)appPath {
-    [ AClass AFunc ];
+    [AClass AFunc];
 
-    return [NSSearchPathForDirectoriesInDomains (NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+    return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
 }
 
 @end
@@ -1004,7 +1008,7 @@ if ([receiver conformsTo:@protocol(ReferenceCounting)]) {
 #import <Foundation/NSObject.h>
 #import <stdio.h>
 
-@interface Fraction : NSObject {
+@interface Fraction:NSObject {
     int numerator;
     int denominator;
 }
@@ -1030,11 +1034,11 @@ if ([receiver conformsTo:@protocol(ReferenceCounting)]) {
 }
 
 - (int)denominator {
-    return(denominator);
+    return denominator;
 }
 
 - (int)numerator {
-    return(numerator);
+    return numerator;
 }
 
 @end
@@ -1045,8 +1049,8 @@ if ([receiver conformsTo:@protocol(ReferenceCounting)]) {
 @selector(methodNameNoArg);
 @selector(methodNameArg1:arg2:);
 
-NSArray *sortedTZs = [ [ NSTimeZone knownTimeZoneNames ]
-                       sortedArrayUsingSelector:@selector(compare:) ];
+NSArray *sortedTZs = [[NSTimeZone knownTimeZoneNames]
+                      sortedArrayUsingSelector:@selector(compare:)];
 
 
 // oc/sort_import.m
@@ -1071,7 +1075,7 @@ public bool Enabled
 {
     NSString *whatever = @"some lovely text, the fox and co";
 
-    a = (enderedImage->h - toplines - bottomlines);
+    a = (enderedImage->h-toplines-bottomlines);
 }
 
 
