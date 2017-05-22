@@ -14,8 +14,16 @@ TARGET="$SOURCE"
 if [[ -z $SOURCE ]]; then
     exit -1;
 fi
-
-FILES="$(find "${TARGET}" -name "*.[h,hpp,pch,c,cpp,m,mm,pch]" \
+#    -name "*.[h,hpp,pch,c,cpp,m,mm]" \
+FILES="$(find "${TARGET}" \
+    \(  -name "*.h" \
+    -or -name "*.hpp" \
+    -or -name "*.pch" \
+    -or -name "*.c" \
+    -or -name "*.cpp"\
+    -or -name "*.m"\
+    -or -name "*.mm"\
+    \) \
     -not -path "./3rd*" \
     -not -path "./lib*" \
     -not -path "./NA*" \
@@ -24,7 +32,7 @@ FILES="$(find "${TARGET}" -name "*.[h,hpp,pch,c,cpp,m,mm,pch]" \
     -not -path "**Lib/*" \
     -not -path "**Pods/*" \
     -not -path "*/**/Vendors/*"\
-    -not -path "*/**/ImagePicker/ImagePicker/*"\
+    -not -path "*/**/ImagePicker/*"\
     )"
 
 while read -r line;do
