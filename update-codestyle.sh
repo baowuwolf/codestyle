@@ -15,14 +15,6 @@ if [[ -z $SOURCE ]]; then
     exit -1;
 fi
 
-#if [[ -z $TARGET ]]; then
-#    TARGET="${script_dir}/Output"
-#fi
-
-
-# rm -rf "${TARGET}"
-# cp -rf "${SOURCE}" "${TARGET}"
-
 FILES="$(find "${TARGET}" -name "*.[h,hpp,pch,c,cpp,m,mm,pch]" -not -path "./3rd*" -not -path "./lib*" -not -path "./NA*" -not -path "./sharepods*" -not -path "**.framework**" -not -path "**Lib/*" -not -path "**Pods/*" -not -path "*/**/Vendors/*")"
 
 while read -r line;do
