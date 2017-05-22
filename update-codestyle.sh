@@ -15,7 +15,17 @@ if [[ -z $SOURCE ]]; then
     exit -1;
 fi
 
-FILES="$(find "${TARGET}" -name "*.[h,hpp,pch,c,cpp,m,mm,pch]" -not -path "./3rd*" -not -path "./lib*" -not -path "./NA*" -not -path "./sharepods*" -not -path "**.framework**" -not -path "**Lib/*" -not -path "**Pods/*" -not -path "*/**/Vendors/*")"
+FILES="$(find "${TARGET}" -name "*.[h,hpp,pch,c,cpp,m,mm,pch]" \
+    -not -path "./3rd*" \
+    -not -path "./lib*" \
+    -not -path "./NA*" \
+    -not -path "./sharepods*" \
+    -not -path "**.framework**" \
+    -not -path "**Lib/*" \
+    -not -path "**Pods/*" \
+    -not -path "*/**/Vendors/*"\
+    -not -path "*/**/ImagePicker/ImagePicker/*"\
+    )"
 
 while read -r line;do
     "$CMD" -c "${script_dir}/uncrustify.cfg" -l OC --no-backup "$line"
