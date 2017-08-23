@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#
+# update-codestyle folder
 set -o errexit
 set -o pipefail
 set -o nounset
@@ -32,6 +32,7 @@ FILES="$(find "${TARGET}" \
     -not -path "**Lib/*" \
     -not -path "**Pods/*" \
     -not -path "*/**/Vendors/*"\
+    -not -path "*/**/Vendor/*" \
     -not -path "*/**/ImagePicker/*"\
     )"
 
