@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# 更新代码风格
 # update-codestyle folder
 set -o errexit
 set -o pipefail
@@ -37,5 +38,10 @@ FILES="$(find "${TARGET}" \
     )"
 
 while read -r line;do
-    "$CMD" -c "${script_dir}/uncrustify.cfg" -l OC --no-backup "$line"
+    result=`"$CMD" -c "${script_dir}/uncrustify.cfg" -l OC  -L 2 "$line"`
+    rm -rf "$line.uncrustify"
+    if [[ -z $result ]]; then
+        "$CMD" -c "${script_dir}/uncrustify.cfg" -l OC --no-backup "$line"
+        echo "success";
+    fi
 done <<< "$FILES"
